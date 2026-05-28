@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Decipher — The Central Brain of Your Sales & Marketing</title>
+<meta name="description" content="Stop burning ad budgets into a black hole. Decipher routes every Meta lead, automates every follow-up, and shows you real-time ROI — deployed into your business in under a day."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
+      },
+      colors: {
+        navy: {
+          0: '#060F1E',
+          1: '#0B1628',
+          2: '#122040',
+          3: '#1A2D52',
+          4: '#243660',
+        },
+        blue: {
+          primary: '#1D4ED8',
+          deep: '#1E40AF',
+          deeper: '#1E3A8A',
+          light: '#60A5FA',
+          glow: '#3B82F6',
+        },
+        ink: {
+          0: '#0C1528',
+          1: '#1E2F4A',
+          2: '#3D5475',
+          3: '#6B84A3',
+          4: '#9BB0CC',
+          5: '#C8D6E8',
+        },
+        surface: {
+          0: '#F0F4FA',
+          1: '#FFFFFF',
+          2: '#F7F9FD',
+        }
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-slow': 'float 9s ease-in-out infinite',
+        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+        'marquee': 'marquee 28s linear infinite',
+        'marquee2': 'marquee2 28s linear infinite',
+        'fade-up': 'fadeUp 0.7s ease forwards',
+        'scan': 'scan 3s linear infinite',
+        'blink': 'blink 1.4s step-end infinite',
+        'count': 'count 0.6s ease forwards',
+        'slide-in-right': 'slideInRight 0.6s cubic-bezier(0.4,0,0.2,1) forwards',
+      },
+      keyframes: {
+        float: {
+          '0%,100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-18px) rotate(0.5deg)' },
+        },
+        pulseGlow: {
+          '0%,100%': { opacity: '0.5', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.04)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        marquee2: {
+          '0%': { transform: 'translateX(50%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        fadeUp: {
+          from: { opacity: '0', transform: 'translateY(28px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        scan: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(400%)' },
+        },
+        blink: {
+          '0%,100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        slideInRight: {
+          from: { opacity: '0', transform: 'translateX(40px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        }
+      },
+      backgroundImage: {
+        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(29,78,216,0.07)' stroke-width='1'/%3E%3C/svg%3E\")",
+        'dot-pattern': "url(\"data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(29,78,216,0.12)'/%3E%3C/svg%3E\")",
+      }
+    }
+  }
+}
+</script>
+<style>
+  /* ── BASE ────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: #060F1E;
+    color: #F0F4FA;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #060F1E; }
+  ::-webkit-scrollbar-thumb { background: #1A2D52; border-radius: 9px; }
+  ::selection { background: rgba(29,78,216,0.35); color: #fff; }
+
+  /* ── NOISE OVERLAY ───────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ── GLOW ORBS ───────────────────────────────────── */
+  .glow-orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; z-index: 0;
+  }
+
+  /* ── GLASSMORPHISM ───────────────────────────────── */
+  .glass {
+    background: rgba(6, 15, 30, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(29, 78, 216, 0.15);
+  }
+  .glass-card {
+    background: rgba(11, 22, 40, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(29, 78, 216, 0.18);
+  }
+
+  /* ── BLUE GLOW BUTTON ────────────────────────────── */
+  .btn-deploy {
+    background: #1D4ED8;
+    color: #fff;
+    font-weight: 700;
+    font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing: 0.01em;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 28px rgba(29,78,216,0.55), 0 4px 20px rgba(29,78,216,0.4);
+  }
+  .btn-deploy::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(96,165,250,0.2), transparent);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .btn-deploy:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(29,78,216,0.7), 0 8px 32px rgba(29,78,216,0.5); }
+  .btn-deploy:hover::before { opacity: 1; }
+
+  .btn-ghost {
+    background: rgba(29,78,216,0.08);
+    color: #60A5FA;
+    font-weight: 600;
+    border: 1px solid rgba(29,78,216,0.35);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(29,78,216,0.15); border-color: rgba(29,78,216,0.6); }
+
+  /* ── HERO DASHBOARD MOCKUP ───────────────────────── */
+  .mockup-shell {
+    background: linear-gradient(160deg, #0B1628 0%, #060F1E 100%);
+    border: 1px solid rgba(29,78,216,0.25);
+    border-radius: 16px;
+    box-shadow:
+      0 0 0 1px rgba(29,78,216,0.1),
+      0 40px 120px rgba(6,15,30,0.8),
+      0 0 80px rgba(29,78,216,0.12);
+    overflow: hidden;
+    position: relative;
+  }
+  .mockup-shell::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(29,78,216,0.6), rgba(96,165,250,0.4), transparent);
+  }
+
+  /* ── SCAN LINE ───────────────────────────────────── */
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(29,78,216,0.6), rgba(96,165,250,0.4), transparent);
+    animation: scan 4s linear infinite;
+  }
+
+  /* ── FEATURE CARD HOVER ──────────────────────────── */
+  .feat-card {
+    background: rgba(11, 22, 40, 0.6);
+    border: 1px solid rgba(29,78,216,0.15);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; overflow: hidden;
+  }
+  .feat-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(29,78,216,0.08), transparent);
+    opacity: 0; transition: opacity 0.3s;
+    border-radius: 16px;
+  }
+  .feat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(29,78,216,0.45);
+    box-shadow: 0 20px 60px rgba(29,78,216,0.15), 0 0 0 1px rgba(29,78,216,0.2);
+  }
+  .feat-card:hover::before { opacity: 1; }
+
+  /* ── CHAOS/BRAIN CARDS ───────────────────────────── */
+  .chaos-card {
+    background: rgba(220,38,38,0.05);
+    border: 1px solid rgba(220,38,38,0.18);
+    border-radius: 14px;
+    transition: all 0.25s;
+  }
+  .chaos-card:hover { border-color: rgba(220,38,38,0.35); background: rgba(220,38,38,0.08); }
+
+  .brain-card {
+    background: rgba(29,78,216,0.06);
+    border: 1px solid rgba(29,78,216,0.22);
+    border-radius: 14px;
+    transition: all 0.25s;
+  }
+  .brain-card:hover { border-color: rgba(29,78,216,0.45); background: rgba(29,78,216,0.1); box-shadow: 0 8px 32px rgba(29,78,216,0.12); }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── PRICING CARD ────────────────────────────────── */
+  .pricing-card {
+    background: linear-gradient(160deg, #0F1E3A 0%, #0B1628 100%);
+    border: 1px solid rgba(29,78,216,0.3);
+    border-radius: 20px;
+    position: relative; overflow: hidden;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, #1D4ED8, #60A5FA, #1D4ED8);
+  }
+  .pricing-card::after {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(29,78,216,0.15), transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* ── NUMBER TICKER ───────────────────────────────── */
+  .ticker-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── BADGE ───────────────────────────────────────── */
+  .badge-live {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(22,163,74,0.1);
+    border: 1px solid rgba(22,163,74,0.25);
+    color: #4ADE80;
+    border-radius: 99px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+  }
+  .dot-live {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ADE80;
+    box-shadow: 0 0 8px rgba(74,222,128,0.8);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* ── MONO TERMINAL TEXT ──────────────────────────── */
+  .terminal-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: #4ADE80;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── STAT PILL ───────────────────────────────────── */
+  .stat-pill {
+    background: rgba(29,78,216,0.1);
+    border: 1px solid rgba(29,78,216,0.2);
+    border-radius: 10px;
+  }
+
+  /* ── DIVIDER WITH LABEL ──────────────────────────── */
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(29,78,216,0.1);
+    border: 1px solid rgba(29,78,216,0.25);
+    border-radius: 99px;
+    padding: 5px 14px;
+    font-size: 11px; font-weight: 600;
+    color: #60A5FA; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── STEP LINE ───────────────────────────────────── */
+  .step-connector {
+    position: absolute; left: 24px; top: 56px;
+    width: 2px; height: calc(100% - 32px);
+    background: linear-gradient(to bottom, rgba(29,78,216,0.5), rgba(29,78,216,0.05));
+  }
+
+  /* ── NAV LINK ────────────────────────────────────── */
+  .nav-link {
+    color: rgba(200,214,232,0.7);
+    font-size: 14px; font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s;
+    position: relative;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0; right: 0; height: 1px;
+    background: #3B82F6;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+  .nav-link:hover { color: #fff; }
+  .nav-link:hover::after { transform: scaleX(1); }
+
+  /* ── LOGO MARK ───────────────────────────────────── */
+  .logo-mark {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #1D4ED8, #60A5FA);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(29,78,216,0.5);
+    flex-shrink: 0;
+  }
+
+  /* ── ROI COUNTER WIDGET ──────────────────────────── */
+  .roi-widget {
+    background: rgba(6,15,30,0.9);
+    border: 1px solid rgba(29,78,216,0.3);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(29,78,216,0.15);
+    backdrop-filter: blur(12px);
+  }
+
+  /* ── INTEGRATION LOGO ────────────────────────────── */
+  .int-logo {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+  .int-logo:hover { background: rgba(29,78,216,0.1); border-color: rgba(29,78,216,0.3); }
+
+  /* ── GRID BG ─────────────────────────────────────── */
+  .grid-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(29,78,216,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════════════════════════════ -->
+<nav class="glass fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 flex-shrink-0">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+          <line x1="12" y1="2" x2="12" y2="22"/>
+          <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size:16px;font-weight:700;color:#fff;letter-spacing:0.01em;line-height:1.1">Decipher</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Command Intelligence</div>
+      </div>
+    </a>
+
+    <!-- Nav Links -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#brain" class="nav-link">The Brain</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#setup" class="nav-link">Setup</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+    </div>
+
+    <!-- CTA -->
+    <div class="flex items-center gap-3">
+      <div class="badge-live hidden sm:flex px-3 py-1">
+        <span class="dot-live"></span>
+        <span style="font-size:11px;font-weight:600;color:#4ADE80;letter-spacing:0.05em;">LIVE SYSTEM</span>
+      </div>
+      <a href="#pricing">
+        <button class="btn-deploy px-5 py-2.5 rounded-lg text-sm font-bold" style="font-size:13px;">
+          Deploy the Brain →
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex flex-col justify-center pt-16 overflow-hidden grid-bg">
+  <!-- Glow Orbs -->
+  <div class="glow-orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(29,78,216,0.18),transparent 70%);top:-100px;left:-150px;"></div>
+  <div class="glow-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(96,165,250,0.1),transparent 70%);top:200px;right:-100px;"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(29,78,216,0.12),transparent 70%);bottom:100px;left:40%;"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+    <!-- Left: Copy -->
+    <div>
+      <!-- Tag -->
+      <div class="section-tag mb-6 reveal">
+        <span>⬡</span> Central Brain · Marketing + Sales
+      </div>
+
+      <!-- Headline -->
+      <h1 class="reveal reveal-delay-1" style="font-size:clamp(36px,5vw,60px);font-weight:700;line-height:1.08;letter-spacing:-0.03em;color:#fff;margin-bottom:24px;">
+        Your ad spend ends here.<br/>
+        <span style="background:linear-gradient(90deg,#1D4ED8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Your revenue</span><br/>
+        starts here.
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="reveal reveal-delay-2" style="font-size:17px;line-height:1.7;color:rgba(200,214,232,0.75);max-width:500px;margin-bottom:36px;">
+        Decipher takes every Meta lead, every Google click, every WhatsApp reply — and routes it into a ruthless, automated sales machine. No more spreadsheets. No more ignored leads. No more guessing where your money went.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap gap-4 mb-12 reveal reveal-delay-3">
+        <a href="#pricing">
+          <button class="btn-deploy px-7 py-4 rounded-xl text-base font-bold">
+            Deploy the Brain
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;margin-left:6px;vertical-align:middle"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </button>
+        </a>
+        <a href="#brain">
+          <button class="btn-ghost px-7 py-4 rounded-xl text-base font-semibold">
+            See the Math →
+          </button>
+        </a>
+      </div>
+
+      <!-- Stat Pills -->
+      <div class="flex flex-wrap gap-3 reveal reveal-delay-4">
+        <div class="stat-pill px-4 py-2.5">
+          <div class="ticker-num text-lg" style="color:#60A5FA;">2,400+</div>
+          <div style="font-size:10px;color:rgba(200,214,232,0.5);letter-spacing:0.06em;text-transform:uppercase;margin-top:1px;">Leads Tracked</div>
+        </div>
+        <div class="stat-pill px-4 py-2.5">
+          <div class="ticker-num text-lg" style="color:#4ADE80;">₹4.2Cr+</div>
+          <div style="font-size:10px;color:rgba(200,214,232,0.5);letter-spacing:0.06em;text-transform:uppercase;margin-top:1px;">Pipeline Managed</div>
+        </div>
+        <div class="stat-pill px-4 py-2.5">
+          <div class="ticker-num text-lg" style="color:#F59E0B;">< 5 min</div>
+          <div style="font-size:10px;color:rgba(200,214,232,0.5);letter-spacing:0.06em;text-transform:uppercase;margin-top:1px;">First Response</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Dashboard Mockup -->
+    <div class="relative animate-float hidden lg:block">
+      <!-- Glow behind mockup -->
+      <div class="absolute inset-0 animate-pulse-glow" style="background:radial-gradient(ellipse at center,rgba(29,78,216,0.22),transparent 70%);border-radius:24px;transform:scale(1.1);"></div>
+
+      <div class="mockup-shell relative z-10">
+        <!-- Scan Line -->
+        <div class="scan-line"></div>
+
+        <!-- Mockup Topbar -->
+        <div style="padding:12px 16px;border-bottom:1px solid rgba(29,78,216,0.15);display:flex;align-items:center;gap:10px;background:rgba(6,15,30,0.6);">
+          <div style="display:flex;gap:5px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:#FF5F57;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#FFBD2E;"></div>
+            <div style="width:10px;height:10px;border-radius:50%;background:#28CA41;"></div>
+          </div>
+          <div style="flex:1;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);">decipher · command dashboard</div>
+          <div class="badge-live px-2 py-0.5"><span class="dot-live"></span><span style="font-size:9px;color:#4ADE80;">LIVE</span></div>
+        </div>
+
+        <!-- Mockup Content -->
+        <div style="padding:16px;">
+          <!-- Top KPI Row -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
+            <div style="background:rgba(29,78,216,0.1);border:1px solid rgba(29,78,216,0.2);border-radius:10px;padding:10px;">
+              <div style="font-size:8px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Leads Today</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:#60A5FA;line-height:1;">47</div>
+              <div style="font-size:9px;color:#4ADE80;margin-top:3px;">+12 ↑</div>
+            </div>
+            <div style="background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.15);border-radius:10px;padding:10px;">
+              <div style="font-size:8px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Closed Won</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:#4ADE80;line-height:1;">8</div>
+              <div style="font-size:9px;color:#4ADE80;margin-top:3px;">₹6.4L</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:10px;">
+              <div style="font-size:8px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Ad Spend</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:#F59E0B;line-height:1;">₹42K</div>
+              <div style="font-size:9px;color:#F59E0B;margin-top:3px;">CPL ₹893</div>
+            </div>
+            <div style="background:rgba(168,85,246,0.07);border:1px solid rgba(168,85,246,0.15);border-radius:10px;padding:10px;">
+              <div style="font-size:8px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Follow-Ups</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:#C084FC;line-height:1;">100%</div>
+              <div style="font-size:9px;color:#C084FC;margin-top:3px;">Automated</div>
+            </div>
+          </div>
+
+          <!-- Pipeline Bar -->
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(29,78,216,0.12);border-radius:10px;padding:12px;margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+              <span style="font-size:10px;font-weight:600;color:rgba(200,214,232,0.6);">PIPELINE HEALTH</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹1.24 Cr total</span>
+            </div>
+            <div style="display:flex;gap:3px;border-radius:6px;overflow:hidden;height:8px;">
+              <div style="width:28%;background:#1D4ED8;border-radius:6px 0 0 6px;"></div>
+              <div style="width:22%;background:#7C3AED;"></div>
+              <div style="width:18%;background:#F59E0B;"></div>
+              <div style="width:14%;background:#4ADE80;"></div>
+              <div style="width:18%;background:rgba(255,255,255,0.1);border-radius:0 6px 6px 0;"></div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:7px;flex-wrap:wrap;">
+              <span style="font-size:9px;color:rgba(200,214,232,0.45);display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#1D4ED8;display:inline-block;"></span>New 28%</span>
+              <span style="font-size:9px;color:rgba(200,214,232,0.45);display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#7C3AED;display:inline-block;"></span>Contacted 22%</span>
+              <span style="font-size:9px;color:rgba(200,214,232,0.45);display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#F59E0B;display:inline-block;"></span>Proposal 18%</span>
+              <span style="font-size:9px;color:rgba(200,214,232,0.45);display:flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#4ADE80;display:inline-block;"></span>Won 14%</span>
+            </div>
+          </div>
+
+          <!-- Agent Scoreboard -->
+          <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(29,78,216,0.1);border-radius:10px;padding:12px;">
+            <div style="font-size:10px;font-weight:600;color:rgba(200,214,232,0.5);margin-bottom:10px;letter-spacing:0.07em;text-transform:uppercase;">🏆 Live Sales Leaderboard</div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#F59E0B;width:12px;">#1</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#1D4ED8,#60A5FA);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;">RK</div>
+                <div style="flex:1;">
+                  <div style="font-size:11px;color:#fff;font-weight:500;">Rajan Kumar</div>
+                  <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:3px;"><div style="width:85%;height:100%;background:#1D4ED8;border-radius:2px;"></div></div>
+                </div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹2.1L</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(200,214,232,0.4);width:12px;">#2</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#C084FC);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;">MH</div>
+                <div style="flex:1;">
+                  <div style="font-size:11px;color:#fff;font-weight:500;">Meghana Hegde</div>
+                  <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:3px;"><div style="width:68%;height:100%;background:#7C3AED;border-radius:2px;"></div></div>
+                </div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹1.6L</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(200,214,232,0.4);width:12px;">#3</span>
+                <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#0369A1,#38BDF8);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;">SA</div>
+                <div style="flex:1;">
+                  <div style="font-size:11px;color:#fff;font-weight:500;">Suresh Anand</div>
+                  <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:3px;"><div style="width:52%;height:100%;background:#0369A1;border-radius:2px;"></div></div>
+                </div>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹1.2L</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom ticker -->
+          <div class="terminal-text mt-3 flex items-center gap-2">
+            <span style="animation:blink 1.4s step-end infinite;color:#1D4ED8;">▊</span>
+            <span id="ticker-line">META_LEAD_ROUTED → Rajan Kumar · 0.4s latency · WhatsApp sent ✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Badge: AI Score -->
+      <div class="roi-widget absolute -right-6 top-24 p-3 z-20 animate-float-slow" style="min-width:130px;">
+        <div style="font-size:9px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.08em;">AI Lead Score</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:#4ADE80;line-height:1.1;">94<span style="font-size:14px;">/100</span></div>
+        <div style="font-size:9px;color:#4ADE80;">🔥 Hot · Close Now</div>
+      </div>
+
+      <!-- Floating Badge: CPL -->
+      <div class="roi-widget absolute -left-6 bottom-28 p-3 z-20" style="min-width:120px;animation:float 7s ease-in-out infinite 1s;">
+        <div style="font-size:9px;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.08em;">ROI Today</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:#60A5FA;line-height:1.1;">8.3×</div>
+        <div style="font-size:9px;color:rgba(200,214,232,0.4);">ad spend vs. revenue</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     TRUST MARQUEE
+════════════════════════════════════════════════════════════════════════ -->
+<div style="border-top:1px solid rgba(29,78,216,0.12);border-bottom:1px solid rgba(29,78,216,0.12);background:rgba(11,22,40,0.5);padding:18px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,#060F1E,transparent);z-index:2;"></div>
+  <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,#060F1E,transparent);z-index:2;"></div>
+
+  <div style="display:flex;animation:marquee 30s linear infinite;">
+    <!-- Repeated set of trust items -->
+    <div style="display:flex;align-items:center;gap:48px;padding:0 24px;flex-shrink:0;">
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏗️ REAL ESTATE FIRMS, BENGALURU</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🎓 COACHING INSTITUTES, BANGALORE</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🚀 HIGH-GROWTH D2C BRANDS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏥 HEALTHCARE CLINICS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏢 B2B MSME LEADERS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">📱 META AGENCY PARTNERS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🎯 PERFORMANCE MARKETING TEAMS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏗️ REAL ESTATE FIRMS, BENGALURU</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🎓 COACHING INSTITUTES, BANGALORE</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🚀 HIGH-GROWTH D2C BRANDS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏥 HEALTHCARE CLINICS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🏢 B2B MSME LEADERS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">📱 META AGENCY PARTNERS</span>
+      <span style="color:rgba(29,78,216,0.3);">◆</span>
+      <span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.35);white-space:nowrap;letter-spacing:0.05em;">🎯 PERFORMANCE MARKETING TEAMS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     THE BRAIN — CHAOS VS CLARITY
+════════════════════════════════════════════════════════════════════════ -->
+<section id="brain" class="relative py-28 overflow-hidden">
+  <div class="glow-orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(220,38,38,0.07),transparent 70%);bottom:0;left:0;"></div>
+  <div class="glow-orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(29,78,216,0.1),transparent 70%);bottom:0;right:0;"></div>
+
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <div class="section-tag mx-auto mb-5">⚡ The Stark Difference</div>
+      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1.1;margin-bottom:16px;">
+        Before & After<br/>
+        <span style="background:linear-gradient(90deg,#1D4ED8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">the Brain kicks in</span>
+      </h2>
+      <p style="font-size:16px;color:rgba(200,214,232,0.6);max-width:500px;margin:0 auto;line-height:1.7;">
+        This is what your business looks like without Decipher. And what it becomes the moment we deploy it.
+      </p>
+    </div>
+
+    <!-- Split Layout -->
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- CHAOS Side -->
+      <div class="reveal reveal-delay-1">
+        <div class="chaos-card p-8">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:99px;padding:5px 14px;margin-bottom:24px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#EF4444;box-shadow:0 0 8px rgba(239,68,68,0.6);"></span>
+            <span style="font-size:11px;font-weight:700;color:#EF4444;letter-spacing:0.08em;text-transform:uppercase;">Without Decipher</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">💸</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#FCA5A5;margin-bottom:3px;">₹50K/month burned. Zero attribution.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.4);line-height:1.6;">Ads running. Leads dropping into a spreadsheet nobody updates. You don't know which campaign is printing money and which one is a drain.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(220,38,38,0.1);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">😴</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#FCA5A5;margin-bottom:3px;">4-hour reply window. Lead gone cold.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.4);line-height:1.6;">Meta lead fills a form at 9am. Your team sees it at 1pm. They've already spoken to three competitors. That lead cost you ₹900.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(220,38,38,0.1);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">📋</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#FCA5A5;margin-bottom:3px;">Sticky notes & Insta DMs as your CRM.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.4);line-height:1.6;">Follow-ups live in someone's head. When they quit, the pipeline walks out the door with them.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(220,38,38,0.1);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">🕳️</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#FCA5A5;margin-bottom:3px;">No idea which agent is closing & who isn't.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.4);line-height:1.6;">One rep has 80 leads and closes 4. Another has 20 and closes 8. You're flying blind and paying both the same.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(220,38,38,0.1);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">📉</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#FCA5A5;margin-bottom:3px;">Management reporting = Sunday evening panic.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.4);line-height:1.6;">Someone builds a Google Sheet every week. Numbers are wrong. Decisions are wrong. Growth is guesswork.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRAIN Side -->
+      <div class="reveal reveal-delay-2">
+        <div class="brain-card p-8">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(29,78,216,0.15);border:1px solid rgba(29,78,216,0.35);border-radius:99px;padding:5px 14px;margin-bottom:24px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#60A5FA;box-shadow:0 0 8px rgba(96,165,250,0.7);animation:pulse 2s infinite;"></span>
+            <span style="font-size:11px;font-weight:700;color:#60A5FA;letter-spacing:0.08em;text-transform:uppercase;">With Decipher Brain</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">🎯</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#93C5FD;margin-bottom:3px;">Every rupee tracked. CPL visible in real-time.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.5);line-height:1.6;">Meta Ads, Google Ads, and organic — unified. See exactly which campaign generated what revenue. Cut losers instantly. Double down on winners.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(29,78,216,0.12);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">⚡</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#93C5FD;margin-bottom:3px;">Lead routed & WhatsApp sent in under 60 seconds.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.5);line-height:1.6;">Meta API fires. Decipher scores the lead. Assigns to the right agent. Sends a personalized WhatsApp. All before your team picks up their coffee.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(29,78,216,0.12);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">🤖</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#93C5FD;margin-bottom:3px;">AI follow-up engine that never sleeps.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.5);line-height:1.6;">Every lead gets a follow-up sequence: Day 1, Day 3, Day 7. Automatically. Your sales team wakes up to warm conversations, not cold lead lists.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(29,78,216,0.12);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">🏆</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#93C5FD;margin-bottom:3px;">Gamified leaderboard that wakes up your sales floor.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.5);line-height:1.6;">Live rankings, deal counts, revenue per rep. Watch your team compete in real-time. The scoreboard closes deals that managers can't.</div>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(29,78,216,0.12);"></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="font-size:18px;flex-shrink:0;margin-top:2px;">📊</span>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:#93C5FD;margin-bottom:3px;">Board-level report waiting every morning at 9am.</div>
+                <div style="font-size:12px;color:rgba(200,214,232,0.5);line-height:1.6;">Automated evening digest: pipeline health, ad ROI, top performers, at-risk deals. Make every Monday meeting a victory lap.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transition Arrow -->
+    <div class="flex justify-center mt-10 reveal">
+      <div style="background:linear-gradient(135deg,rgba(220,38,38,0.15),rgba(29,78,216,0.15));border:1px solid rgba(29,78,216,0.2);border-radius:12px;padding:12px 28px;display:inline-flex;align-items:center;gap:16px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#EF4444;">CHAOS MODE</span>
+        <span style="font-size:18px;">→</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#60A5FA;">BRAIN MODE</span>
+        <span style="font-size:10px;color:rgba(200,214,232,0.4);margin-left:8px;">Avg. deployment: 1 business day</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FEATURES GRID
+════════════════════════════════════════════════════════════════════════ -->
+<section id="features" class="relative py-28 grid-bg">
+  <div class="glow-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(29,78,216,0.1),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-16 reveal">
+      <div class="section-tag mx-auto mb-5">⬡ Command Modules</div>
+      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1.1;margin-bottom:16px;">
+        Four modules.<br/>
+        <span style="background:linear-gradient(90deg,#1D4ED8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">One ruthless machine.</span>
+      </h2>
+      <p style="font-size:16px;color:rgba(200,214,232,0.6);max-width:500px;margin:0 auto;">
+        Not features. Weapons. Built specifically for founders who are done playing small.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Feature 1: Omnichannel Capture -->
+      <div class="feat-card p-8 reveal reveal-delay-1">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(29,78,216,0.3),rgba(96,165,250,0.15));border:1px solid rgba(29,78,216,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;">🌐</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(29,78,216,0.1);border:1px solid rgba(29,78,216,0.2);border-radius:99px;padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#60A5FA;">MODULE 01</div>
+        </div>
+        <h3 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">Omnichannel Lead Capture</h3>
+        <p style="font-size:14px;color:rgba(200,214,232,0.6);line-height:1.7;margin-bottom:20px;">
+          Meta Ads, Google Ads, website forms, WhatsApp inbound, Instagram DMs, referrals — every single source funnels into one unified pipeline. No lead escapes. Ever.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Meta Leads API — instant, no manual download</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Smart source tagging — know your best channel</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Auto-assign by location, budget, or round-robin</span>
+          </div>
+        </div>
+        <!-- Mini visual -->
+        <div style="margin-top:20px;background:rgba(6,15,30,0.6);border:1px solid rgba(29,78,216,0.15);border-radius:10px;padding:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span style="font-size:10px;padding:3px 10px;background:rgba(24,182,54,0.12);border:1px solid rgba(24,182,54,0.25);border-radius:99px;color:#4ADE80;">● Meta Ads</span>
+          <span style="font-size:10px;padding:3px 10px;background:rgba(29,78,216,0.12);border:1px solid rgba(29,78,216,0.25);border-radius:99px;color:#60A5FA;">● Google Ads</span>
+          <span style="font-size:10px;padding:3px 10px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);border-radius:99px;color:#FBBF24;">● WhatsApp</span>
+          <span style="font-size:10px;padding:3px 10px;background:rgba(168,85,246,0.12);border:1px solid rgba(168,85,246,0.25);border-radius:99px;color:#C084FC;">● Organic</span>
+          <span style="font-size:10px;padding:3px 10px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:99px;color:#F87171;">● Instagram</span>
+        </div>
+      </div>
+
+      <!-- Feature 2: Follow-Up Engine -->
+      <div class="feat-card p-8 reveal reveal-delay-2">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(74,222,128,0.2),rgba(29,78,216,0.1));border:1px solid rgba(74,222,128,0.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;">🤖</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);border-radius:99px;padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">MODULE 02</div>
+        </div>
+        <h3 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">The Follow-Up Engine</h3>
+        <p style="font-size:14px;color:rgba(200,214,232,0.6);line-height:1.7;margin-bottom:20px;">
+          A lead that doesn't hear from you in 5 minutes is a lead your competitor is closing right now. Decipher's AI follow-up engine contacts, nurtures, and re-engages on autopilot — 24/7, no exceptions.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">WhatsApp sequences: D+0, D+3, D+7 automated</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Smart re-engagement for ignored or cold leads</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">AI lead scoring shifts priority dynamically</span>
+          </div>
+        </div>
+        <!-- Follow-up timeline -->
+        <div style="margin-top:20px;background:rgba(6,15,30,0.6);border:1px solid rgba(74,222,128,0.12);border-radius:10px;padding:12px;">
+          <div style="display:flex;align-items:center;gap:0;position:relative;">
+            <div style="flex:1;text-align:center;position:relative;z-index:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(74,222,128,0.2);border:1px solid rgba(74,222,128,0.4);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#4ADE80;">0</div>
+              <div style="font-size:9px;color:#4ADE80;">Lead In</div>
+            </div>
+            <div style="height:1px;background:rgba(74,222,128,0.2);flex:1;"></div>
+            <div style="flex:1;text-align:center;position:relative;z-index:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#60A5FA;">1m</div>
+              <div style="font-size:9px;color:#60A5FA;">WA Sent</div>
+            </div>
+            <div style="height:1px;background:rgba(29,78,216,0.2);flex:1;"></div>
+            <div style="flex:1;text-align:center;position:relative;z-index:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#FBBF24;">D3</div>
+              <div style="font-size:9px;color:#FBBF24;">Nurture</div>
+            </div>
+            <div style="height:1px;background:rgba(245,158,11,0.2);flex:1;"></div>
+            <div style="flex:1;text-align:center;position:relative;z-index:1;">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(74,222,128,0.2);border:1px solid rgba(74,222,128,0.4);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#4ADE80;">✓</div>
+              <div style="font-size:9px;color:#4ADE80;">Closed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3: Gamified Sales -->
+      <div class="feat-card p-8 reveal reveal-delay-3">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(245,158,11,0.25),rgba(251,191,36,0.1));border:1px solid rgba(245,158,11,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;">🎮</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:99px;padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#FBBF24;">MODULE 03</div>
+        </div>
+        <h3 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">Gamified Sales Command</h3>
+        <p style="font-size:14px;color:rgba(200,214,232,0.6);line-height:1.7;margin-bottom:20px;">
+          Your sales floor should feel electric. Live leaderboards, deal-count rankings, and revenue-per-rep visibility turn average performers into competitive closers — no pep talk required.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Live leaderboard updated on every deal close</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Daily call logs, follow-up scores, conversion %</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Manager view: see who's hustling, who isn't</span>
+          </div>
+        </div>
+        <!-- Leaderboard mini -->
+        <div style="margin-top:20px;background:rgba(6,15,30,0.6);border:1px solid rgba(245,158,11,0.12);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F59E0B;width:18px;">🥇</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;"><div style="width:88%;height:100%;background:linear-gradient(90deg,#1D4ED8,#60A5FA);border-radius:3px;"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹2.1L</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.4);width:18px;">🥈</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;"><div style="width:65%;height:100%;background:linear-gradient(90deg,#7C3AED,#C084FC);border-radius:3px;"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹1.6L</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,0.3);width:18px;">🥉</span>
+            <div style="flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;"><div style="width:45%;height:100%;background:linear-gradient(90deg,#0369A1,#38BDF8);border-radius:3px;"></div></div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ADE80;">₹1.2L</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 4: Marketing ROI Intelligence -->
+      <div class="feat-card p-8 reveal reveal-delay-4">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div style="width:52px;height:52px;background:linear-gradient(135deg,rgba(168,85,246,0.25),rgba(192,132,252,0.1));border:1px solid rgba(168,85,246,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;">📊</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,246,0.08);border:1px solid rgba(168,85,246,0.2);border-radius:99px;padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#C084FC;">MODULE 04</div>
+        </div>
+        <h3 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">Marketing ROI Intelligence</h3>
+        <p style="font-size:14px;color:rgba(200,214,232,0.6);line-height:1.7;margin-bottom:20px;">
+          Every rupee you spend on ads is tracked from click to closed deal. CPL. ROAS. Revenue per campaign. Channel attribution. Stop guessing. Start optimizing with actual data.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(168,85,246,0.1);border:1px solid rgba(168,85,246,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Meta + Google + organic, unified in one view</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(168,85,246,0.1);border:1px solid rgba(168,85,246,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">CPL alert when cost-per-lead exceeds your target</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:18px;height:18px;border-radius:50%;background:rgba(168,85,246,0.1);border:1px solid rgba(168,85,246,0.3);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">✓</span>
+            <span style="font-size:13px;color:rgba(200,214,232,0.7);">Automated reporting to founders & board every week</span>
+          </div>
+        </div>
+        <!-- ROI Counter -->
+        <div style="margin-top:20px;background:rgba(6,15,30,0.6);border:1px solid rgba(168,85,246,0.12);border-radius:10px;padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="text-align:center;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:#C084FC;">₹893</div>
+            <div style="font-size:9px;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Avg CPL</div>
+          </div>
+          <div style="text-align:center;border-left:1px solid rgba(168,85,246,0.12);border-right:1px solid rgba(168,85,246,0.12);">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:#4ADE80;">8.3×</div>
+            <div style="font-size:9px;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">ROAS</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:#60A5FA;">42%</div>
+            <div style="font-size:9px;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;">Conv. Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrations strip -->
+    <div style="margin-top:48px;text-align:center;" class="reveal">
+      <p style="font-size:12px;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;">Connects with everything you already use</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">🎯</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Meta Ads</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">🔍</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Google Ads</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">💬</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">WhatsApp Business</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">📧</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Email (SMTP)</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">📅</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Google Calendar</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">📊</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Google Analytics</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">🔐</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">Google SSO</span>
+        </div>
+        <div class="int-logo px-4 py-2.5" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:16px;">💼</span><span style="font-size:12px;font-weight:600;color:rgba(200,214,232,0.5);">LinkedIn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     DIFY — DO-IT-FOR-YOU
+════════════════════════════════════════════════════════════════════════ -->
+<section id="setup" class="relative py-28 overflow-hidden" style="background:linear-gradient(180deg,#060F1E,#0B1628 50%,#060F1E);">
+  <div class="glow-orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(29,78,216,0.1),transparent 70%);top:0;right:-100px;"></div>
+
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left -->
+      <div>
+        <div class="section-tag mb-6 reveal">🛠️ White-Glove Deployment</div>
+        <h2 class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1.1;margin-bottom:20px;">
+          We don't hand you<br/>a manual.<br/>
+          <span style="background:linear-gradient(90deg,#1D4ED8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">We deploy it for you.</span>
+        </h2>
+        <p class="reveal reveal-delay-2" style="font-size:16px;color:rgba(200,214,232,0.65);line-height:1.8;margin-bottom:32px;">
+          Most SaaS tools ship you a 200-page setup guide and a chatbot. Decipher ships you a team. We physically configure your Meta integrations, build your WhatsApp sequences, and have your command dashboard live in one business day. You don't touch a single API key.
+        </p>
+
+        <!-- Trust Stats -->
+        <div class="grid grid-cols-3 gap-4 reveal reveal-delay-3">
+          <div style="text-align:center;padding:16px;background:rgba(29,78,216,0.08);border:1px solid rgba(29,78,216,0.18);border-radius:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:#60A5FA;line-height:1;">1</div>
+            <div style="font-size:11px;color:rgba(200,214,232,0.5);margin-top:4px;">Business<br/>Day Setup</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:#4ADE80;line-height:1;">0</div>
+            <div style="font-size:11px;color:rgba(200,214,232,0.5);margin-top:4px;">Technical<br/>Work For You</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:12px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:#FBBF24;line-height:1;">∞</div>
+            <div style="font-size:11px;color:rgba(200,214,232,0.5);margin-top:4px;">Ongoing<br/>Support</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Steps -->
+      <div class="reveal reveal-delay-2">
+        <div style="display:flex;flex-direction:column;gap:0;">
+
+          <div style="position:relative;padding-left:56px;padding-bottom:28px;">
+            <div style="position:absolute;left:0;top:0;width:40px;height:40px;background:linear-gradient(135deg,#1D4ED8,#60A5FA);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:#fff;">01</div>
+            <div class="step-connector"></div>
+            <h4 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">Discovery Call (30 min)</h4>
+            <p style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.6;">We map your current ad setup, team structure, and lead sources. We ask exactly three things: What are you selling? Where do your leads come from? How does your team follow up today?</p>
+          </div>
+
+          <div style="position:relative;padding-left:56px;padding-bottom:28px;">
+            <div style="position:absolute;left:0;top:0;width:40px;height:40px;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:#60A5FA;">02</div>
+            <div class="step-connector"></div>
+            <h4 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">We Build Your Brain (Day 1)</h4>
+            <p style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.6;">Our team connects your Meta Ads API, configures WhatsApp Business sequences, sets up routing rules, builds your pipeline stages, and loads your team onto the command dashboard.</p>
+          </div>
+
+          <div style="position:relative;padding-left:56px;padding-bottom:28px;">
+            <div style="position:absolute;left:0;top:0;width:40px;height:40px;background:rgba(29,78,216,0.2);border:1px solid rgba(29,78,216,0.35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:#60A5FA;">03</div>
+            <div class="step-connector"></div>
+            <h4 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;">30-Minute Team Briefing</h4>
+            <p style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.6;">We walk your sales team through the dashboard in 30 minutes flat. That's all they need. No training manuals. No YouTube tutorials. They're closing within the hour.</p>
+          </div>
+
+          <div style="position:relative;padding-left:56px;">
+            <div style="position:absolute;left:0;top:0;width:40px;height:40px;background:linear-gradient(135deg,rgba(74,222,128,0.3),rgba(29,78,216,0.2));border:1px solid rgba(74,222,128,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🚀</div>
+            <h4 style="font-size:16px;font-weight:700;color:#4ADE80;margin-bottom:6px;">You're Live. Start Closing.</h4>
+            <p style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.6;">Leads route automatically. Follow-ups fire automatically. Your dashboard shows everything in real-time. Your job is now just to close — and watch the revenue number climb.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PRICING
+════════════════════════════════════════════════════════════════════════ -->
+<section id="pricing" class="relative py-28 overflow-hidden grid-bg">
+  <div class="glow-orb" style="width:700px;height:700px;background:radial-gradient(circle,rgba(29,78,216,0.13),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-16 reveal">
+      <div class="section-tag mx-auto mb-5">💰 One Price. Total Control.</div>
+      <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1.1;margin-bottom:16px;">
+        Less than the cost of<br/>
+        <span style="background:linear-gradient(90deg,#EF4444,#F87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">one lost lead.</span>
+      </h2>
+      <p style="font-size:16px;color:rgba(200,214,232,0.6);max-width:520px;margin:0 auto;">
+        Your average Meta lead costs ₹900. One missed follow-up = one wasted lead. Decipher costs ₹15,000. That's 16 leads. Our system recovers hundreds every month.
+      </p>
+    </div>
+
+    <!-- Pricing Card -->
+    <div class="pricing-card p-10 mb-10 reveal">
+      <div style="position:relative;z-index:1;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:32px;">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:rgba(200,214,232,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Decipher Full Command</div>
+            <div style="display:flex;align-items:baseline;gap:8px;">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:700;color:#fff;line-height:1;letter-spacing:-0.03em;">₹15,000</span>
+              <span style="font-size:14px;color:rgba(200,214,232,0.45);">deployment + license</span>
+            </div>
+            <div style="font-size:13px;color:rgba(200,214,232,0.4);margin-top:4px;">One-time setup fee. Monthly subscription from ₹4,999/month post-trial.</div>
+          </div>
+          <div style="background:rgba(29,78,216,0.15);border:1px solid rgba(29,78,216,0.3);border-radius:12px;padding:16px;min-width:160px;text-align:center;">
+            <div style="font-size:10px;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Typical Payback</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:700;color:#4ADE80;">< 7</div>
+            <div style="font-size:12px;color:rgba(200,214,232,0.5);">business days</div>
+          </div>
+        </div>
+
+        <!-- Feature Grid -->
+        <div class="grid sm:grid-cols-2 gap-x-12 gap-y-4 mb-10">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Full Command Dashboard deployment</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Meta Ads API integration (done for you)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">WhatsApp automation & sequences</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">AI lead scoring & smart routing</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Live ROI & marketing attribution</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Gamified sales leaderboard</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">30-minute team onboarding session</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Automated daily performance reports</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Up to 10 agents included</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:#4ADE80;flex-shrink:0;">✓</span>
+            <span style="font-size:14px;color:rgba(200,214,232,0.75);">Priority WhatsApp support channel</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+          <button class="btn-deploy px-8 py-4 rounded-xl text-base font-bold" style="font-size:15px;" onclick="window.location.href='mailto:hello@decipherglobal.co?subject=Deploy Decipher Brain'">
+            Deploy the Brain Now →
+          </button>
+          <div style="font-size:13px;color:rgba(200,214,232,0.45);">
+            ✦ No contracts. Cancel anytime. Setup in 24 hrs.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Math Proof -->
+    <div style="background:rgba(29,78,216,0.05);border:1px solid rgba(29,78,216,0.18);border-radius:14px;padding:24px;" class="reveal">
+      <div style="font-size:12px;font-weight:700;color:rgba(200,214,232,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;">📐 The Math</div>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#EF4444;margin-bottom:4px;">WITHOUT DECIPHER</div>
+          <div style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.7;">
+            ₹50K/mo ads<br/>
+            40% leads missed<br/>
+            = ₹20K wasted monthly<br/>
+            = <strong style="color:#F87171;">₹2.4L lost per year</strong>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:32px;color:rgba(29,78,216,0.5);">→</div>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4ADE80;margin-bottom:4px;">WITH DECIPHER</div>
+          <div style="font-size:13px;color:rgba(200,214,232,0.55);line-height:1.7;">
+            ₹15K deployment<br/>
+            100% leads captured<br/>
+            = Full ROI Month 1<br/>
+            = <strong style="color:#4ADE80;">₹2.4L+ recovered</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FINAL CTA BANNER
+════════════════════════════════════════════════════════════════════════ -->
+<section class="relative py-24 overflow-hidden" style="background:linear-gradient(135deg,#0B1628,#122040);">
+  <div class="glow-orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(29,78,216,0.2),transparent 70%);top:50%;left:30%;transform:translate(-50%,-50%);"></div>
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+    <div class="reveal" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(200,214,232,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;">
+      decipherglobal.co · Bengaluru, India
+    </div>
+    <h2 class="reveal reveal-delay-1" style="font-size:clamp(28px,5vw,54px);font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1.1;margin-bottom:20px;">
+      Running business<br/>
+      <span style="background:linear-gradient(90deg,#1D4ED8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">should feel like winning.</span>
+    </h2>
+    <p class="reveal reveal-delay-2" style="font-size:17px;color:rgba(200,214,232,0.6);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">
+      Every day without Decipher is another day of burning money, missing leads, and watching competitors close the deals you generated.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4 reveal reveal-delay-3" style="margin-bottom:40px;">
+      <button class="btn-deploy px-10 py-5 rounded-xl text-lg font-bold" onclick="window.location.href='mailto:hello@decipherglobal.co?subject=Deploy Decipher Brain'">
+        Deploy the Brain Now →
+      </button>
+      <button class="btn-ghost px-8 py-5 rounded-xl text-base font-semibold" onclick="window.location.href='tel:+919876543210'">
+        📞 Talk to a Human
+      </button>
+    </div>
+    <div class="reveal" style="font-size:12px;color:rgba(200,214,232,0.3);">
+      hello@decipherglobal.co &nbsp;·&nbsp; WhatsApp: +91 98765 43210 &nbsp;·&nbsp; Bengaluru, Karnataka
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════════ -->
+<footer style="background:#060F1E;border-top:1px solid rgba(29,78,216,0.12);padding:48px 0 28px;">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div class="logo-mark">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+              <line x1="12" y1="2" x2="12" y2="22"/>
+              <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:#fff;">Decipher</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;">Command Intelligence Platform</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:rgba(200,214,232,0.4);line-height:1.7;max-width:300px;">
+          The Central Brain of your Marketing and Sales department. Built for Indian founders, MSMEs, and growth-stage businesses in Bengaluru and beyond.
+        </p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="mailto:hello@decipherglobal.co" style="font-size:12px;color:rgba(200,214,232,0.45);text-decoration:none;transition:color 0.15s;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.45)'">hello@decipherglobal.co</a>
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:rgba(200,214,232,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Product</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#brain" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">The Brain</a>
+          <a href="#features" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">Features</a>
+          <a href="#setup" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">DIFY Setup</a>
+          <a href="#pricing" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">Pricing</a>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:rgba(200,214,232,0.3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;">Company</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">About</a>
+          <a href="mailto:hello@decipherglobal.co" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">Contact</a>
+          <a href="#" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">Privacy Policy</a>
+          <a href="#" style="font-size:13px;color:rgba(200,214,232,0.5);text-decoration:none;" onmouseover="this.style.color='#60A5FA'" onmouseout="this.style.color='rgba(200,214,232,0.5)'">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div style="border-top:1px solid rgba(29,78,216,0.1);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;">
+      <div style="font-size:12px;color:rgba(200,214,232,0.25);">© 2025 Decipher. All rights reserved. · Bengaluru, Karnataka, India</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(29,78,216,0.4);letter-spacing:0.06em;">SYSTEM STATUS: ALL MODULES OPERATIONAL ●</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════════════════ -->
+<script>
+// ── SCROLL REVEAL ─────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── TICKER MESSAGES ───────────────────────────────────────────────────
+const tickers = [
+  'META_LEAD_ROUTED → Rajan Kumar · 0.4s latency · WhatsApp sent ✓',
+  'LEAD_SCORED → Priya Sharma · AI Score: 91/100 · Status: HOT 🔥',
+  'DEAL_CLOSED → Meghana Hegde · ₹1.8L · Campaign: Google Search',
+  'FOLLOW_UP_FIRED → 14 leads · Sequence: Day-3 Nudge · Delivered ✓',
+  'CPL_ALERT → Meta Campaign #4 · ₹1,240 CPL · Above threshold',
+  'PIPELINE_UPDATE → 6 new leads today · Meta Ads · Assigned ✓',
+  'REPORT_SENT → Evening digest → 4 recipients · 21:00 IST',
+];
+let tickerIdx = 0;
+const tickerEl = document.getElementById('ticker-line');
+if (tickerEl) {
+  setInterval(() => {
+    tickerIdx = (tickerIdx + 1) % tickers.length;
+    tickerEl.style.opacity = '0';
+    setTimeout(() => {
+      tickerEl.textContent = tickers[tickerIdx];
+      tickerEl.style.opacity = '1';
+      tickerEl.style.transition = 'opacity 0.4s ease';
+    }, 200);
+  }, 3000);
+}
+
+// ── SMOOTH SCROLL ─────────────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ── NAVBAR SCROLL EFFECT ──────────────────────────────────────────────
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    nav.style.borderBottomColor = 'rgba(29,78,216,0.25)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(29,78,216,0.15)';
+  }
+});
+
+// ── NUMBER COUNTER ANIMATION ──────────────────────────────────────────
+function animateCount(el, target, prefix = '', suffix = '') {
+  let start = 0;
+  const duration = 1800;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = prefix + Math.floor(start).toLocaleString('en-IN') + suffix;
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+</script>
+</body>
+</html>
