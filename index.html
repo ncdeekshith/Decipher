@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Decipher — From Scattered Leads To Revenue Control</title>
+<meta name="description" content="Decipher organizes scattered lead sources into a routed, measurable sales pipeline."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #f5f7fb;
+  --ink: #0d1526;
+  --muted: #647084;
+  --line: #dce3ee;
+  --panel: rgba(255,255,255,.82);
+  --dark: #07101f;
+  --blue: #2563eb;
+  --green: #16a34a;
+  --amber: #d97706;
+  --red: #e11d48;
+  --shadow: 0 28px 90px rgba(16, 24, 40, .16);
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: auto; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(37,99,235,.12), transparent 28rem),
+    radial-gradient(circle at 82% 22%, rgba(22,163,74,.10), transparent 28rem),
+    linear-gradient(180deg, #fbfcff 0%, #f3f6fb 42%, #edf2f7 100%);
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(13,21,38,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13,21,38,.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.6), transparent 72%);
+}
+button, a { font: inherit; }
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(18px, 4vw, 64px);
+  background: rgba(251,252,255,.72);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(13,21,38,.08);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--ink);
+  color: white;
+  box-shadow: 0 10px 30px rgba(13,21,38,.22);
+}
+.brand-mark span {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #fff;
+  transform: rotate(45deg);
+}
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 700 11px/1 JetBrains Mono, monospace;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.nav-status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 5px rgba(22,163,74,.12);
+}
+.scroll-space { height: 340vh; position: relative; }
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.stage-copy {
+  position: absolute;
+  z-index: 20;
+  left: clamp(18px, 5vw, 72px);
+  top: 118px;
+  width: min(500px, calc(100vw - 36px));
+  padding: 22px 24px 24px;
+  border: 1px solid rgba(13,21,38,.08);
+  border-radius: 22px;
+  background: rgba(251,252,255,.76);
+  box-shadow: 0 24px 80px rgba(13,21,38,.08);
+  backdrop-filter: blur(18px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  font: 800 11px/1 JetBrains Mono, monospace;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+}
+h1, h2 {
+  margin: 0;
+  max-width: 10ch;
+  font-size: clamp(42px, 5.2vw, 78px);
+  line-height: .94;
+  letter-spacing: -.068em;
+  color: var(--ink);
+}
+h2 { font-size: clamp(36px, 4.1vw, 62px); }
+.stage-copy p {
+  margin: 22px 0 0;
+  max-width: 450px;
+  color: var(--muted);
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.65;
+}
+.proof-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.proof-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(13,21,38,.1);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+.stage-copy[data-step] { opacity: 0; transform: translateY(18px); pointer-events: none; }
+body[data-stage="0"] .stage-copy[data-step="0"],
+body[data-stage="1"] .stage-copy[data-step="1"],
+body[data-stage="2"] .stage-copy[data-step="2"],
+body[data-stage="3"] .stage-copy[data-step="3"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+.workspace {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+.lead-card {
+  --x0: 50%;
+  --y0: 50%;
+  --r0: 0deg;
+  --x1: 8%;
+  --y1: 22%;
+  --delay: 0s;
+  position: absolute;
+  left: var(--x0);
+  top: var(--y0);
+  width: 250px;
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 13px;
+  padding: 12px;
+  border: 1px solid rgba(13,21,38,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.84);
+  box-shadow: 0 20px 60px rgba(13,21,38,.14);
+  backdrop-filter: blur(20px);
+  transform: translate(-50%, -50%) rotate(var(--r0));
+  transition:
+    left .58s cubic-bezier(.16,1,.3,1),
+    top .58s cubic-bezier(.16,1,.3,1),
+    transform .58s cubic-bezier(.16,1,.3,1),
+    opacity .45s ease,
+    box-shadow .45s ease,
+    border-color .45s ease;
+  animation: floatLead 5.6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+@keyframes floatLead {
+  0%, 100% { margin-top: 0; margin-left: 0; }
+  25% { margin-top: -20px; margin-left: 22px; }
+  50% { margin-top: 12px; margin-left: -18px; }
+  75% { margin-top: 18px; margin-left: 14px; }
+}
+.lead-card img {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: inset 0 0 0 1px rgba(13,21,38,.07);
+}
+.lead-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+  letter-spacing: -.01em;
+}
+.lead-card small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+.lead-card b {
+  display: none;
+  margin-top: 8px;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: #dcfce7;
+  color: #15803d;
+  font: 800 10px/1 JetBrains Mono, monospace;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.lead-card:nth-child(1) { --x0: 24%; --y0: 17%; --r0: -13deg; --x1: 31%; --y1: 18%; --delay: -.1s; }
+.lead-card:nth-child(2) { --x0: 66%; --y0: 15%; --r0: 10deg; --x1: 31%; --y1: 29%; --delay: -.8s; }
+.lead-card:nth-child(3) { --x0: 84%; --y0: 34%; --r0: -8deg; --x1: 31%; --y1: 40%; --delay: -1.4s; }
+.lead-card:nth-child(4) { --x0: 18%; --y0: 58%; --r0: 12deg; --x1: 31%; --y1: 51%; --delay: -2s; }
+.lead-card:nth-child(5) { --x0: 76%; --y0: 70%; --r0: -15deg; --x1: 31%; --y1: 62%; --delay: -2.7s; }
+.lead-card:nth-child(6) { --x0: 47%; --y0: 28%; --r0: 7deg; --x1: 31%; --y1: 73%; --delay: -3.1s; }
+.lead-card:nth-child(7) { --x0: 44%; --y0: 82%; --r0: 14deg; --x1: 31%; --y1: 84%; --delay: -3.8s; }
+.lead-card:nth-child(8) { --x0: 87%; --y0: 62%; --r0: 8deg; --delay: -4.4s; }
+.lead-card:nth-child(9) { --x0: 11%; --y0: 78%; --r0: -7deg; --delay: -5s; }
+.lead-card:nth-child(10) { --x0: 58%; --y0: 47%; --r0: -18deg; --delay: -5.4s; }
+.lead-card:nth-child(11) { --x0: 92%; --y0: 82%; --r0: 16deg; --delay: -6s; }
+.lead-card:nth-child(12) { --x0: 7%; --y0: 37%; --r0: -12deg; --delay: -6.5s; }
+.hub {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 190px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  border-radius: 32px;
+  color: white;
+  background: linear-gradient(145deg, #101827, #07101f);
+  box-shadow: 0 40px 120px rgba(13,21,38,.35);
+  transform: translate(-50%, -50%) scale(.86);
+  opacity: 0;
+  transition: opacity .7s ease, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.hub::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(37,99,235,.28);
+  border-radius: 42px;
+}
+.hub strong {
+  display: block;
+  font-size: 21px;
+  letter-spacing: -.04em;
+}
+.hub span {
+  display: block;
+  margin-top: 8px;
+  font: 800 10px/1 JetBrains Mono, monospace;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.connector {
+  position: absolute;
+  left: 42%;
+  top: 52%;
+  width: 27%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(37,99,235,0), rgba(37,99,235,.8), rgba(22,163,74,.8), rgba(22,163,74,0));
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity .5s ease, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.pipeline {
+  position: absolute;
+  right: clamp(22px, 6vw, 86px);
+  top: 17%;
+  width: min(560px, 36vw);
+  border: 1px solid rgba(13,21,38,.10);
+  border-radius: 22px;
+  background: rgba(255,255,255,.9);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(54px) scale(.96);
+  transition: opacity .65s ease, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.pipeline-head {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(13,21,38,.08);
+}
+.pipeline-head strong { font-size: 15px; }
+.pipeline-head span {
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font: 800 10px/1 JetBrains Mono, monospace;
+  text-transform: uppercase;
+}
+.column-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 14px;
+  background: #f8fafc;
+}
+.column {
+  min-height: 330px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgba(13,21,38,.08);
+  padding: 12px;
+}
+.column h3 {
+  margin: 0 0 12px;
+  color: #64748b;
+  font: 800 10px/1 JetBrains Mono, monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.deal {
+  min-height: 74px;
+  border-radius: 13px;
+  padding: 11px;
+  margin-bottom: 9px;
+  background: #f8fafc;
+  border: 1px solid rgba(13,21,38,.07);
+}
+.deal strong {
+  display: block;
+  font-size: 13px;
+}
+.deal span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.dashboard {
+  position: absolute;
+  right: clamp(22px, 6vw, 86px);
+  bottom: 8%;
+  width: min(520px, 38vw);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .65s ease, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.metric {
+  min-height: 108px;
+  border: 1px solid rgba(13,21,38,.1);
+  border-radius: 18px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 18px 55px rgba(13,21,38,.1);
+  padding: 16px;
+}
+.metric strong {
+  display: block;
+  font-size: 30px;
+  letter-spacing: -.06em;
+}
+.metric span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+body[data-stage="1"] .lead-card,
+body[data-stage="2"] .lead-card,
+body[data-stage="3"] .lead-card {
+  left: var(--x1);
+  top: var(--y1);
+  width: 285px;
+  animation: none;
+  transform: translate(0, -50%) rotate(0deg);
+  box-shadow: 0 16px 45px rgba(13,21,38,.12);
+}
+body[data-stage="1"] .lead-card:nth-child(n+8),
+body[data-stage="2"] .lead-card:nth-child(n+8),
+body[data-stage="3"] .lead-card:nth-child(n+8) {
+  opacity: 0;
+  pointer-events: none;
+}
+body[data-stage="1"] .lead-card b,
+body[data-stage="2"] .lead-card b,
+body[data-stage="3"] .lead-card b { display: block; }
+body[data-stage="1"] .hub,
+body[data-stage="2"] .hub,
+body[data-stage="3"] .hub {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+body[data-stage="1"] .connector,
+body[data-stage="2"] .connector,
+body[data-stage="3"] .connector {
+  opacity: 1;
+  transform: scaleX(1);
+}
+body[data-stage="1"] .pipeline,
+body[data-stage="2"] .pipeline,
+body[data-stage="3"] .pipeline {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+body[data-stage="2"] .dashboard,
+body[data-stage="3"] .dashboard {
+  opacity: 1;
+  transform: translateY(0);
+}
+body[data-stage="2"] .stage-copy,
+body[data-stage="3"] .stage-copy { top: 96px; }
+.progress {
+  position: fixed;
+  z-index: 60;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 12px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(13,21,38,.28);
+  border-radius: 50%;
+  background: rgba(255,255,255,.7);
+  transition: transform .25s, background .25s;
+}
+.dot.active {
+  transform: scale(1.5);
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.page-section {
+  position: relative;
+  padding: 110px clamp(18px, 5vw, 72px);
+  border-top: 1px solid rgba(13,21,38,.08);
+}
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+.section-head h2 {
+  max-width: 12ch;
+  font-size: clamp(36px, 4.4vw, 68px);
+}
+.section-head p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.brand-tile {
+  min-height: 116px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(13,21,38,.09);
+  border-radius: 18px;
+  background: rgba(255,255,255,.76);
+  box-shadow: 0 16px 45px rgba(13,21,38,.06);
+  color: #334155;
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.team-card {
+  min-height: 260px;
+  border: 1px solid rgba(13,21,38,.09);
+  border-radius: 22px;
+  background: rgba(255,255,255,.82);
+  box-shadow: 0 18px 55px rgba(13,21,38,.07);
+  padding: 22px;
+}
+.team-card img {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 28px;
+}
+.team-card h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -.04em;
+}
+.team-card p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr .9fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.price-card {
+  border: 1px solid rgba(13,21,38,.1);
+  border-radius: 24px;
+  background: rgba(255,255,255,.86);
+  box-shadow: 0 20px 65px rgba(13,21,38,.08);
+  padding: 26px;
+}
+.price-card.featured {
+  background: #07101f;
+  color: white;
+  transform: translateY(-14px);
+  box-shadow: 0 32px 100px rgba(13,21,38,.26);
+}
+.price-card h3 {
+  margin: 0;
+  font-size: 22px;
+}
+.price {
+  margin-top: 22px;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -.07em;
+}
+.price small {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.featured .price small { color: #94a3b8; }
+.price-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+  color: var(--muted);
+}
+.featured ul { color: #cbd5e1; }
+.price-card li::before {
+  content: "✓";
+  color: var(--green);
+  font-weight: 900;
+  margin-right: 9px;
+}
+.price-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 26px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+.featured a {
+  background: white;
+  color: var(--ink);
+}
+.final {
+  min-height: 90vh;
+  display: grid;
+  place-items: center;
+  padding: 96px 20px;
+  text-align: center;
+}
+.final-inner {
+  width: min(820px, 100%);
+}
+.final h2 {
+  margin: 0 auto;
+  max-width: 14ch;
+}
+.final p {
+  margin: 22px auto 0;
+  max-width: 660px;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin-top: 30px;
+  padding: 0 22px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  box-shadow: 0 18px 45px rgba(13,21,38,.22);
+}
+@media (max-width: 900px) {
+  .stage-copy { top: 88px; }
+  h1, h2 { font-size: clamp(42px, 12vw, 64px); }
+  .lead-card {
+    width: 214px;
+    grid-template-columns: 42px 1fr;
+  }
+  .lead-card img { width: 42px; height: 42px; }
+  body[data-stage="1"] .lead-card,
+  body[data-stage="2"] .lead-card,
+  body[data-stage="3"] .lead-card {
+    width: 225px;
+    left: 18px;
+  }
+  .hub {
+    left: auto;
+    right: 24px;
+    top: 48%;
+    width: 142px;
+    height: 142px;
+  }
+  .connector { display: none; }
+  .pipeline {
+    right: 14px;
+    top: auto;
+    bottom: 28px;
+    width: calc(100vw - 28px);
+    transform-origin: bottom center;
+  }
+  .column-row { grid-template-columns: 1fr; }
+  .column { min-height: auto; }
+  .column:nth-child(n+2) { display: none; }
+  .dashboard { display: none; }
+  .nav-status { display: none; }
+  .progress { right: 12px; }
+  .section-head { display: block; }
+  .section-head p { margin-top: 16px; }
+  .brand-grid, .team-grid, .pricing-grid { grid-template-columns: 1fr; }
+  .price-card.featured { transform: none; }
+}
+</style>
+</head>
+<body data-stage="0">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark"><span></span></div><div>Decipher</div></div>
+  <div class="nav-status"><i></i><span id="status">Scattered sources</span></div>
+</header>
+
+<nav class="progress" aria-label="Page progress">
+  <button class="dot active" data-stage="0" aria-label="Scattered leads"></button>
+  <button class="dot" data-stage="1" aria-label="Organized pipeline"></button>
+  <button class="dot" data-stage="2" aria-label="Measured operations"></button>
+  <button class="dot" data-stage="3" aria-label="Revenue control"></button>
+</nav>
+
+<main class="scroll-space">
+  <section class="sticky">
+    <div class="stage-copy" data-step="0">
+      <div class="eyebrow">Before Decipher</div>
+      <h1>Your leads are everywhere.</h1>
+      <p>Meta, WhatsApp, calls, forms, Instagram, email, and checkout signals are all real demand. The problem is that they arrive scattered, unowned, and easy to lose.</p>
+      <div class="proof-row"><span>Different channels</span><span>No single owner</span><span>Slow follow-up</span></div>
+    </div>
+
+    <div class="stage-copy" data-step="1">
+      <div class="eyebrow">Decipher organizes</div>
+      <h2>Scattered signals become one ordered queue.</h2>
+      <p>Decipher captures each source, labels it, scores it, and routes it into a clean operating lane so sales can act immediately.</p>
+      <div class="proof-row"><span>Capture</span><span>Deduplicate</span><span>Score</span><span>Route</span></div>
+    </div>
+
+    <div class="stage-copy" data-step="2">
+      <div class="eyebrow">Sales motion</div>
+      <h2>The pipeline becomes measurable.</h2>
+      <p>Every rep, source, campaign, SLA, and outcome is visible in one place. Marketing sees what converts. Sales sees what to do next.</p>
+    </div>
+
+    <div class="stage-copy" data-step="3">
+      <div class="eyebrow">Business result</div>
+      <h2>Control replaces chasing.</h2>
+      <p>The CMO gets attribution. The sales head gets ownership. The team gets a clean daily queue instead of a dozen disconnected inboxes.</p>
+    </div>
+
+    <div class="workspace">
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/meta/0866FF" alt="Meta"/>
+        <div><strong>Meta lead ad</strong><small>New inquiry · no owner yet</small><b>Routed</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp"/>
+        <div><strong>WhatsApp reply</strong><small>Asked for pricing</small><b>Follow-up</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/aircall/00B388" alt="Call"/>
+        <div><strong>Inbound call</strong><small>Callback risk</small><b>SLA</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/google/4285F4" alt="Google"/>
+        <div><strong>Google form</strong><small>High intent search</small><b>Scored</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram"/>
+        <div><strong>Instagram DM</strong><small>Brochure request</small><b>Nurture</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail"/>
+        <div><strong>Email inquiry</strong><small>Product questions</small><b>Queued</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/typeform/262627" alt="Typeform"/>
+        <div><strong>Website form</strong><small>Demo requested</small><b>Assigned</b></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/facebook/0866FF" alt="Facebook"/>
+        <div><strong>Facebook comment</strong><small>Asked for details</small></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/shopify/7AB55C" alt="Shopify"/>
+        <div><strong>Checkout lead</strong><small>Abandoned purchase</small></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="LinkedIn"/>
+        <div><strong>LinkedIn lead</strong><small>Asked for a demo</small></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/twilio/F22F46" alt="SMS"/>
+        <div><strong>SMS response</strong><small>Replied after offer</small></div>
+      </article>
+      <article class="lead-card">
+        <img src="https://cdn.simpleicons.org/hubspot/FF7A59" alt="HubSpot"/>
+        <div><strong>Old CRM lead</strong><small>Untouched for 3 days</small></div>
+      </article>
+
+      <div class="connector"></div>
+      <div class="hub"><div><strong>Decipher</strong><span>Lead engine</span></div></div>
+
+      <aside class="pipeline">
+        <div class="pipeline-head"><strong>Unified pipeline</strong><span>Live routing</span></div>
+        <div class="column-row">
+          <div class="column">
+            <h3>New and scored</h3>
+            <div class="deal"><strong>Priya Shah</strong><span>Meta · 92% fit · assigned</span></div>
+            <div class="deal"><strong>Rohan Mehta</strong><span>WhatsApp · pricing · reply sent</span></div>
+            <div class="deal"><strong>Aditi Rao</strong><span>Google · callback booked</span></div>
+          </div>
+          <div class="column">
+            <h3>In follow-up</h3>
+            <div class="deal"><strong>Kabir Jain</strong><span>Instagram · day 1 sequence</span></div>
+            <div class="deal"><strong>Neha Iyer</strong><span>Call · SLA alert</span></div>
+          </div>
+          <div class="column">
+            <h3>Revenue signal</h3>
+            <div class="deal"><strong>Campaign A</strong><span>3.2x ROI · scale</span></div>
+            <div class="deal"><strong>Campaign B</strong><span>CPL high · reduce</span></div>
+          </div>
+        </div>
+      </aside>
+
+      <aside class="dashboard">
+        <div class="metric"><strong>42s</strong><span>median first action</span></div>
+        <div class="metric"><strong>97%</strong><span>leads assigned</span></div>
+        <div class="metric"><strong>3.2x</strong><span>best campaign ROI</span></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<section class="page-section trusted">
+  <div class="section-head">
+    <h2>Trusted by teams who cannot lose leads.</h2>
+    <p>Built for high-intent, lead-heavy businesses where speed, ownership, and attribution directly affect revenue.</p>
+  </div>
+  <div class="brand-grid" aria-label="Trusted brand examples">
+    <div class="brand-tile">Aster Homes</div>
+    <div class="brand-tile">Northline</div>
+    <div class="brand-tile">UrbanNest</div>
+    <div class="brand-tile">ScaleFit</div>
+    <div class="brand-tile">Veda Auto</div>
+    <div class="brand-tile">Cloudnine</div>
+  </div>
+</section>
+
+<section class="page-section teams">
+  <div class="section-head">
+    <h2>One operating layer for the whole revenue team.</h2>
+    <p>Decipher is designed around the people who feel lead chaos every day: marketing, sales, founders, and operations.</p>
+  </div>
+  <div class="team-grid">
+    <article class="team-card">
+      <img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt=""/>
+      <h3>For CMOs</h3>
+      <p>See which channels create pipeline, where CPL is drifting, and which campaigns deserve more budget.</p>
+    </article>
+    <article class="team-card">
+      <img src="https://cdn.simpleicons.org/salesforce/00A1E0" alt=""/>
+      <h3>For Sales Heads</h3>
+      <p>Track ownership, response SLAs, rep load, and every lead that is waiting for action.</p>
+    </article>
+    <article class="team-card">
+      <img src="https://cdn.simpleicons.org/notion/000000" alt=""/>
+      <h3>For Founders</h3>
+      <p>Replace scattered updates with one clean view of demand, action, and revenue movement.</p>
+    </article>
+    <article class="team-card">
+      <img src="https://cdn.simpleicons.org/zapier/FF4A00" alt=""/>
+      <h3>For Ops</h3>
+      <p>Automate routing rules, dedupe messy sources, and keep every workflow accountable.</p>
+    </article>
+  </div>
+</section>
+
+<section class="page-section pricing">
+  <div class="section-head">
+    <h2>Pricing that starts with deployment.</h2>
+    <p>Decipher is not sold as a login and a tutorial. The system is configured around your lead sources, team, and follow-up motion.</p>
+  </div>
+  <div class="pricing-grid">
+    <article class="price-card">
+      <h3>Starter</h3>
+      <div class="price">₹4,999 <small>/ month</small></div>
+      <ul>
+        <li>Unified lead inbox</li>
+        <li>Basic source tagging</li>
+        <li>Daily pipeline summary</li>
+      </ul>
+      <a href="mailto:hello@decipherglobal.co?subject=Decipher%20Starter">Start</a>
+    </article>
+    <article class="price-card featured">
+      <h3>Command</h3>
+      <div class="price">₹15,000 <small>setup</small></div>
+      <ul>
+        <li>Done-for-you Meta, WhatsApp, form, and call setup</li>
+        <li>Lead scoring, routing rules, and SLA alerts</li>
+        <li>Campaign ROI dashboard and sales leaderboard</li>
+        <li>Monthly plan from ₹9,999 after deployment</li>
+      </ul>
+      <a href="mailto:hello@decipherglobal.co?subject=Deploy%20Decipher%20Command">Deploy Command</a>
+    </article>
+    <article class="price-card">
+      <h3>Scale</h3>
+      <div class="price">Custom</div>
+      <ul>
+        <li>Multi-location routing</li>
+        <li>Advanced attribution views</li>
+        <li>Custom automations and reviews</li>
+      </ul>
+      <a href="mailto:hello@decipherglobal.co?subject=Decipher%20Scale">Talk to us</a>
+    </article>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-inner">
+    <div class="eyebrow">What Decipher sells</div>
+    <h2>A revenue operating layer for lead-heavy teams.</h2>
+    <p>Not another inbox. Not another dashboard for someone to ignore. Decipher turns fragmented demand into routed action and measurable revenue.</p>
+    <a class="cta" href="mailto:hello@decipherglobal.co?subject=Deploy%20Decipher">Deploy Decipher</a>
+  </div>
+</section>
+
+<script>
+(function () {
+  'use strict';
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  const status = document.getElementById('status');
+  const labels = ['Scattered sources', 'Organized by Decipher', 'Measured pipeline', 'Revenue control'];
+  let active = 0;
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  function setStage(stage) {
+    if (stage === active) return;
+    active = stage;
+    document.body.dataset.stage = String(stage);
+    status.textContent = labels[stage];
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === stage));
+  }
+
+  function update() {
+    const max = Math.max(1, document.querySelector('.scroll-space').offsetHeight - window.innerHeight);
+    const t = clamp(window.scrollY / max, 0, 1);
+    const stage = Math.min(3, Math.floor(t * 4));
+    setStage(stage);
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      const max = document.querySelector('.scroll-space').offsetHeight - window.innerHeight;
+      window.scrollTo({ top: max * (index / 4) + 10, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}());
+</script>
+</body>
+</html>
