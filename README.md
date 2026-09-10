@@ -16,3 +16,5 @@ Stock imagery, not portraits of Decipher staff or endorsements.
 The homepage launch is scroll-controlled, with a pause button, reduced-motion support and a WebGL fallback. The supplied Decipher logo is displayed from the original local artwork. Website prices are on websites.html#website-pricing; pricing.html redirects there. Each service has a dedicated page. Three.js r170 is included under the MIT licence in public/assets/THREE-LICENSE.txt.
 
 Editorial references (structure and clarity, not copied wording or client claims): Instrument — https://www.instrument.com/about ; Work & Co — https://www.work.co/process/ ; BUCK — https://buck.co/work .
+
+Live hero: real launch footage by Pixabay on Pexels, “Rocket Lift Off” (854262), source https://www.pexels.com/video/rocket-lift-off-854262/ . Source is marked CC0; see https://www.pexels.com/license/ . The first 12 seconds are used, muted and optimized for web delivery. No endorsement is implied. The former Three.js model is no longer loaded.
