@@ -1,6 +1,6 @@
 # Decipher
 
-A responsive, multipage website with a locally served Three.js rocket launch scene. Deploy the contents of `public/` to a static host, or serve the repository root on GitHub Pages (the root redirects to the website). The existing custom domain is retained in CNAME.
+A responsive, multipage website with a locally served Three.js rocket launch scene. Deploy the contents of `public/` to a static host, or serve the repository root on GitHub Pages. The published root mirrors public/ so the custom domain opens directly on the homepage. The existing custom domain is retained in CNAME.
 
 The enquiry form validates required fields and opens a prepared email to hello@decipherglobal.co. It does not send or store submissions itself.
 
