@@ -17,4 +17,4 @@ The homepage launch is scroll-controlled, with a pause button, reduced-motion su
 
 Editorial references (structure and clarity, not copied wording or client claims): Instrument — https://www.instrument.com/about ; Work & Co — https://www.work.co/process/ ; BUCK — https://buck.co/work .
 
-Live hero: three original AI-generated cinematic CGI plates (cockpit, launch pad, liftoff), created for Decipher. The sequence uses scroll-driven camera crops, transitions and localized shader refraction in the exhaust. It is an image-based cinematic treatment, not a continuous rendered 3D film. Pause, chapter controls, reduced-motion support and an ordinary-image fallback are included. The previous Pexels video and modeled rocket are no longer loaded on the homepage.
+Live hero: real launch footage by Pixabay on Pexels, “Rocket Lift Off” (854262), source https://www.pexels.com/video/rocket-lift-off-854262/ . Source is marked CC0; see https://www.pexels.com/license/ . The first 12 seconds are used, muted and optimized for web delivery. No endorsement is implied. The former Three.js model is no longer loaded.
