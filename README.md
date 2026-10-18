@@ -1,20 +1,12 @@
-# Decipher
+# Decipher — Film & Media
 
-A responsive, multipage website with a locally served Three.js rocket launch scene. Deploy the contents of `public/` to a static host, or serve the repository root on GitHub Pages. The published root mirrors public/ so the custom domain opens directly on the homepage. The existing custom domain is retained in CNAME.
+Repositioned around ad films, film production, branded content and post-production. Each service has a dedicated page. Older website/marketing/pricing routes redirect to current media services. Contact enquiries open the visitor’s email app; the website does not send or retain submissions.
 
-The enquiry form validates required fields and opens a prepared email to Deciphermediahouse@gmail.com. It does not send or store submissions itself.
-
-Previous client names were supplied by the owner. No performance claims or testimonials are invented.
+## Featured film
+User-supplied myPAL film: https://www.youtube.com/watch?v=Kgo_Ad4parY . Public oEmbed title and channel verified on 18 October 2026. No unverified production credits, performance claims or testimonials are added. Player loads only on click, with a direct YouTube fallback.
 
 ## Photography
+Production photograph: CineDirektor FILMS / Pexels, https://www.pexels.com/photo/man-holding-professional-video-camera-3928550/ . Stock imagery is captioned and is not presented as Decipher staff or a client production. Licence: https://www.pexels.com/license/ . Original Decipher logo and favicon retained.
 
-Stock imagery, not portraits of Decipher staff or endorsements.
-- Office: Diva Plavalaguna / Pexels — https://www.pexels.com/photo/people-having-a-meeting-at-the-office-6146812/
-- Camera operator: CineDirektor FILMS / Pexels — https://www.pexels.com/photo/man-holding-professional-video-camera-3928550/
-- Licence: https://www.pexels.com/license/
-
-The homepage launch is scroll-controlled, with a pause button, reduced-motion support and a WebGL fallback. The supplied Decipher logo is displayed from the original local artwork. Website prices are on websites.html#website-pricing; pricing.html redirects there. Each service has a dedicated page. Three.js r170 is included under the MIT licence in public/assets/THREE-LICENSE.txt.
-
-Editorial references (structure and clarity, not copied wording or client claims): Instrument — https://www.instrument.com/about ; Work & Co — https://www.work.co/process/ ; BUCK — https://buck.co/work .
-
-Live hero: real launch footage by Pixabay on Pexels, “Rocket Lift Off” (854262), source https://www.pexels.com/video/rocket-lift-off-854262/ . Source is marked CC0; see https://www.pexels.com/license/ . The first 12 seconds are used, muted and optimized for web delivery. No endorsement is implied. The former Three.js model is no longer loaded.
+## Publishing
+Static public/ source. Run python3 build.py for Sites build/. GitHub Pages serves mirrored root files on main with CNAME decipherglobal.co.
