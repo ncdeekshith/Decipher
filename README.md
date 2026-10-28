@@ -19,3 +19,6 @@ Design references: Epoch Films (https://epochfilms.com/) and Pulse Films (https:
 ## Indian production imagery
 28 October 2026: replaced production-camera.jpg references on the homepage and Studio page with indian-cinematographer.png, created with the built-in image generator. Captions identify it as an illustrative AI-generated scene; it does not represent a specific team member. Actual portfolio thumbnails are unchanged.
 Prompt: Photorealistic portrait editorial image of an Indian cinematographer in a charcoal shirt operating a professional cinema camera in a Bengaluru studio, deep navy shadows and soft warm practical light, natural skin and equipment detail, no branding or text.
+
+## Film reel — 28 October 2026
+Seven 3-second excerpts, muted 1920x1080 H.264 at 24 fps, concatenated into a 21-second looping hero. Portfolio cards use lazy-loaded silent excerpts and 1280x720 official posters. Native aspect ratios are preserved in the reel. Pause controls, reduced-motion and data-saver defaults, offscreen/background pausing and full-film links are retained. Clip ranges: Vyamoha 60–63s; Lungs of Bengaluru 180–183s; Hoovadagitthi 120–123s; Byaate 90–93s; Jackfruit 150–153s; Agalike 45–48s; myPAL 25–28s.
