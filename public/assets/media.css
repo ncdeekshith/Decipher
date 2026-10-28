@@ -31,3 +31,20 @@
 }
 
 .reel-hero .hero-top,.reel-hero .reel-heading{z-index:2}
+
+/* Compact introduction: use both columns for content, not an empty label rail. */
+.statement{display:block;padding-block:56px}
+.statement>.eyebrow{padding:0;margin-bottom:22px}
+.statement>div{display:grid;grid-template-columns:1fr 1fr;gap:6%;align-items:center}
+.statement h2{margin:0;font-size:clamp(38px,4.2vw,62px)}
+.statement p{max-width:none;font-size:17px;line-height:1.65}
+.home-portfolio{padding-top:52px;padding-bottom:52px}
+.home-portfolio .section-head{margin-bottom:24px}
+@media(max-width:700px){
+.statement{padding-block:36px}
+.statement>.eyebrow{margin-bottom:18px}
+.statement>div{display:block}
+.statement h2{font-size:38px;margin-bottom:20px}
+.statement p{font-size:16px}
+.home-portfolio{padding-top:36px;padding-bottom:36px}
+}
