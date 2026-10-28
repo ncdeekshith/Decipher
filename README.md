@@ -10,3 +10,8 @@ Production photograph: CineDirektor FILMS / Pexels, https://www.pexels.com/photo
 
 ## Publishing
 Static public/ source. Run python3 build.py for Sites build/. GitHub Pages serves mirrored root files on main with CNAME decipherglobal.co.
+
+## Portfolio update — 28 October 2026
+Added six user-supplied films alongside myPAL. Titles, publishers and thumbnails verified through YouTube oEmbed. Shivraj is credited as a Decipher team member: colour grading on Vyamoha; DI and filming on Lungs of Bengaluru, Hoovadagitthi, Byaate, Jackfruit and Agalike, per user confirmation. Contributions do not imply sole production ownership. Original publisher links are retained.
+
+Design references: Epoch Films (https://epochfilms.com/) and Pulse Films (https://pulsefilms.com/): project-led presentation, clear format labels and concise credits. No copied assets or agency claims.
