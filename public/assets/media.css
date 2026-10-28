@@ -48,3 +48,12 @@
 .statement p{font-size:16px}
 .home-portfolio{padding-top:36px;padding-bottom:36px}
 }
+
+.founders{padding-block:52px;border-bottom:1px solid var(--line)}
+.founder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.founder img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;background:#171d23}
+.founder-caption{padding-top:20px}
+.founder-caption .eyebrow{font-size:10px;color:var(--orange);margin-bottom:8px}
+.founder-caption h3{font-size:clamp(26px,2.8vw,38px);margin-bottom:10px}
+.founder-caption p{font-size:15px;line-height:1.5}
+@media(max-width:700px){.founders{padding-block:36px}.founder-grid{grid-template-columns:1fr;gap:32px}.founder img{max-height:520px}.founder-caption{padding-top:16px}.founder-caption h3{font-size:30px}}
